@@ -71,10 +71,6 @@ const Header = ({ mode, toggleMode }) => {
             id="light/dark"
             onClick={toggleMode}
           />
-          {/* <label className="form-check-label" htmlFor="light/dark">
-           
-            light/dark
-          </label> */}
         </div>
       </Container>
     </Navbar>

@@ -9,13 +9,19 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-app.use('/api/users', userRoutes);
-app.use('/api/auth', authRoute);
+app.use(express.urlencoded({ extended: false }));
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoute);
 
-app.get('/', (req, res) =>{
-  res.send("Server connected")
-})
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
 
 const startServer = async () => {
   try {
