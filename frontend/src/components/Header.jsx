@@ -12,7 +12,7 @@ const Header = ({ mode, toggleMode }) => {
   return (
     <Navbar expand="lg" className={`border-bottom ${mode}`}>
       <Container>
-        <Navbar.Brand href="#home" className="fs-5 fw-bold">
+        <Navbar.Brand as={Link} to={'/'} className="fs-5 fw-bold">
           <span className=" px-2 py-1 bg-dark bg-gradient rounded text-light">
             Vicky's
           </span>
