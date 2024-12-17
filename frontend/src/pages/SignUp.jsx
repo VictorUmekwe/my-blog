@@ -55,11 +55,11 @@ const SignUp = () => {
   };
   return (
     <div
-      className=" container shadow-lg border-2"
-      style={{ marginTop: "150px" }}
+      className=" container shadow-lg border-2 min-vh-100 d-flex justify-content-center align-items-center"
+      // style={{ marginTop: "150px" }}
     >
       <div className=" row p-5 ">
-        <div className=" col-md-6 d-flex align-items-center mt-sm-4">
+        <div className=" col-md-6 mt-sm-4">
           <div>
             <p className="fs-1 fw-bolder">
               <span className="px-2 py-1 bg-dark bg-gradient rounded text-light">
@@ -68,7 +68,7 @@ const SignUp = () => {
               Blog
             </p>
             <p className=" fs-3">
-              Welcome to My blog where get the latest news in tech
+              Welcome to My blog where you get the latest news in the world of tech
             </p>
           </div>
         </div>
@@ -114,9 +114,10 @@ const SignUp = () => {
                 className="btn  w-100 text-center text-white btn-dark mt-2 rounded-pill fw-bold" disabled={loading}
               >
                 {
-                  loading ? (<div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>) : 'Sign Up'
+                  loading ? ( <>
+                     <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                    <span role="status">Loading...</span>
+                    </>) : 'Sign Up'
                 }
               </button>
             </form>

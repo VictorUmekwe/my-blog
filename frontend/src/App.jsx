@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Header from "./components/Header";
 import { useState } from "react";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [mode, setMode] = useState("light");
@@ -45,6 +46,7 @@ const App = () => {
           element={<Projects mode={mode} toggleMode={toggleMode} />}
         />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };
