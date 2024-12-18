@@ -68,7 +68,8 @@ const SignUp = () => {
               Blog
             </p>
             <p className=" fs-3">
-              Welcome to My blog where you get the latest news in the world of tech
+              Welcome to My blog where you get the latest news in the world of tech.
+              Be sure to sign up for more updates.
             </p>
           </div>
         </div>
