@@ -1,0 +1,27 @@
+.form-switch .form-check-input {
+    height: 20px;
+    width: 32px;
+    cursor: pointer;
+}
+.form-switch .form-check-input:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+    outline: 0;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+}
+.form-switch .form-check-input:checked {
+    background-color: #0e300e;
+    border-color: #0e300e;
+    border: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+}
+
+
+.search{
+    border-width: 1px !important;
+}
+
+.search:focus{
+    border: 1px solid #0e300e !important;
+    box-shadow: none !important;
+}
