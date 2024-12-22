@@ -1,0 +1,11 @@
+
+
+.input-color{
+    border-width: 1px !important;
+
+}
+
+.input-color:focus{
+    border: 1px solid #0e300e !important;
+    box-shadow: none !important;
+}
