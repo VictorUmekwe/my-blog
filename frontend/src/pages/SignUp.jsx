@@ -118,21 +118,26 @@ const SignUp = () => {
             >
               {loading ? (
                 <>
+                  <span role="status">Loading...</span>
                   <span
                     className="spinner-border spinner-border-sm me-2"
                     aria-hidden="true"
                   ></span>
-                  <span role="status">Loading...</span>
                 </>
               ) : (
                 "Sign Up"
               )}
             </Button>
-            <div className=" fs-6">
-              <span className=" me-2">Already have an accout?</span>
-              <Link to="sign-in">Sign In</Link>
-            </div>
           </Form>
+          <div className=" fs-6 mb-2">
+            <span className=" me-2">Already have an accout?</span>
+            <Link to="sign-in">Sign In</Link>
+          </div>
+          {errorMessage && (
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
+            </div>
+          )}
         </Col>
       </Row>
     </Container>
