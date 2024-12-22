@@ -9,7 +9,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 const Header = () => {
   const path = useLocation().pathname;
   return (
-    <Navbar expand="lg" className=" border-bottom py-md-3 rounded shadow ">
+    <Navbar expand="lg" className=" border-bottom py-md-3 rounded shadow rounded-pill">
       <Container>
         <Navbar.Brand as={Link} to={"/"} className="fs-3 fw-bold ">
           <span className="px-2 py-1 bg-dark bg-gradient rounded-pill-end text-light">
@@ -40,7 +40,7 @@ const Header = () => {
               Projects
             </Nav.Link>
           </Nav>
-          <div className="d-flex align-items-center justify-content-between"> 
+          <div className="d-flex align-items-center justify-content-between pb-sm-2"> 
             <div className="form-check form-switch ">
               <input
                 className="form-check-input"
@@ -50,7 +50,7 @@ const Header = () => {
             </div>
             <div>
               <Link to="/sign-in">
-                <Button variant="outline-dark" className="btn-lg">
+                <Button variant="outline-dark" className="rounded-pill btn-lg">
                   Sign In
                 </Button>
               </Link>
