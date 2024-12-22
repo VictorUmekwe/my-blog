@@ -1,9 +1,66 @@
 import React from "react";
-import { Col, Container, FloatingLabel, Row, Form, Button } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  FloatingLabel,
+  Row,
+  Form,
+  Button,
+} from "react-bootstrap";
 import "../css/SignUp.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const handleuserName = (e) => {
+    setFormData({ ...formData, username: e.target.value.trim() });
+  };
+
+  const handleEmail = (e) => {
+    setFormData({ ...formData, email: e.target.value.trim() });
+  };
+
+  const handlePassword = (e) => {
+    setFormData({ ...formData, password: e.target.value.trim() });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage("All fields required");
+    }
+    try {
+      setLoading(true);
+      setErrorMessage(null);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = res.json();
+
+      if (data.success === false) {
+        return setErrorMessage(data.message);
+      }
+      setLoading(false);
+
+      if (res.ok) {
+        navigate("/sign-in");
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setLoading(false);
+    }
+  };
   return (
     <Container className="my-5 min-vh-100 shadow border-2 d-flex justify-content-center align-items-center margin ">
       <Row className="pt-sm-0 mt-sm-0 p-md-3">
@@ -23,12 +80,14 @@ const SignUp = () => {
         </Col>
 
         <Col md={6}>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <FloatingLabel label="Username" className="mb-3">
               <Form.Control
                 type="text"
                 placeholder="Username"
                 className="input-color"
+                value={formData.username}
+                onChange={handleuserName}
               />
             </FloatingLabel>
 
@@ -37,6 +96,8 @@ const SignUp = () => {
                 type="email"
                 placeholder="email"
                 className="input-color"
+                value={formData.email}
+                onChange={handleEmail}
               />
             </FloatingLabel>
 
@@ -45,14 +106,31 @@ const SignUp = () => {
                 type="password"
                 placeholder="password"
                 className="input-color"
+                value={formData.password}
+                onChange={handlePassword}
               />
             </FloatingLabel>
-            <Button variant="outline-dark" className=" w-100 rounded-pill mb-3 fw-bold" >
-              Sign Up
+            <Button
+              variant="outline-dark"
+              className=" w-100 rounded-pill mb-3 fw-bold"
+              type="submit"
+              active={loading}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    aria-hidden="true"
+                  ></span>
+                  <span role="status">Loading...</span>
+                </>
+              ) : (
+                "Sign Up"
+              )}
             </Button>
             <div className=" fs-6">
               <span className=" me-2">Already have an accout?</span>
-              <Link to='sign-in'>Sign In</Link>
+              <Link to="sign-in">Sign In</Link>
             </div>
           </Form>
         </Col>
