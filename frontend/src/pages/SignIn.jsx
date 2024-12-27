@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Col,
   Container,
@@ -10,17 +9,22 @@ import {
 import "../css/SignUp.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-
+  const dispatch = useDispatch();
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
 
   const handleEmail = (e) => {
     setFormData({ ...formData, email: e.target.value.trim() });
@@ -34,11 +38,10 @@ const SignIn = () => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      return setErrorMessage("All fields required");
+      return dispatch(signInFailure("Please fill out all fields"));
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,16 +50,25 @@ const SignIn = () => {
       const data = res.json();
 
       if (data.success === false) {
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
 
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/");
+        toast("Sign in Successfull", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -79,8 +91,6 @@ const SignIn = () => {
 
         <Col md={6}>
           <Form onSubmit={handleSubmit}>
-         
-
             <FloatingLabel label="Email" className="mb-3">
               <Form.Control
                 type="email"
@@ -104,7 +114,7 @@ const SignIn = () => {
               variant="outline-dark"
               className=" w-100 rounded-pill mb-3 fw-bold"
               type="submit"
-              active={loading}
+              disabled={loading}
             >
               {loading ? (
                 <>

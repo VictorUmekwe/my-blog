@@ -114,7 +114,7 @@ const SignUp = () => {
               variant="outline-dark"
               className=" w-100 rounded-pill mb-3 fw-bold"
               type="submit"
-              active={loading}
+              disabled={loading}
             >
               {loading ? (
                 <>

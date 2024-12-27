@@ -23,7 +23,7 @@ const signUp = async (req, res, next) => {
   const hashed = await bcryptjs.hash(password, salt);
   try {
     const user = await User.create({ username, email, password: hashed });
-    res.status(201).json({ message: "User created", user });
+    res.status(201).json({ message: "User created", user});
   } catch (error) {
     next(error);
   }
@@ -44,7 +44,7 @@ const signIn = async (req, res, next) => {
 
     const validPassword = await bcryptjs.compare(password, validUser.password);
     if (!validPassword) {
-      return next(errorHandler(400, "Invalid password"));
+       return next(errorHandler(400, "Invalid password"));
     }
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
